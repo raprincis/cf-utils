@@ -1,0 +1,16 @@
+{
+    "$schema": "./xs-security.schema.json",
+    "xsappname": "",
+    "description": "",
+    "scopes": [
+        {
+           "name": "$XSAPPNAME.Display",
+           "description": "de"
+        }
+    ],
+    "role-templates": [
+        {
+            "name": "ViewerPublic"
+        }
+    ]
+}

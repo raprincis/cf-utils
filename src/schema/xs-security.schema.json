@@ -1,0 +1,156 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Schema of xs-security.json",
+    "type": "object",
+    "properties": {
+        "xsappname": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "tenant-mode": {
+            "type": "string",
+            "enum": ["shared"]
+        },
+        "scopes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "default": "$XSAPPNAME.",
+                        "description": "Name of an Authorization Scope, must begin with $XSAPPNAME.",
+                        "examples": [
+                            "$XSAPPNAME.Display"
+                        ]
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "description"
+                ]
+            }
+        },
+        "attributes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "valueType": {
+                        "type": "string"
+                    },
+                    "valueRequired": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "name",
+                    "description",
+                    "valueType",
+                    "valueRequired"
+                ]
+            }
+        },
+        "role-templates": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "examples": ["ViewerPublic"]
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "scope-references": {
+                        "type": "array",
+                        "description": "Refer to one or multple Scope",
+                        "minItems": 1,
+                        "items": {
+                            "type": "string",
+                            "default": "$XSAPPNAME.",
+                            "description": "Refer to one scope",
+                            "examples": ["$XSAPPNAME.Display"]
+                        }
+                    },
+                    "attribute-references": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "default-values": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "default-values"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "description",
+                    "scope-references",
+                    "attribute-references"
+                ]
+            }
+        },
+        "role-collections": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "role-template-references": {
+                        "type": "array",
+                        "description": "Refer to one or multiple Role Template",
+                        "items": {
+                            "type": "string",
+                            "default": "$XSAPPNAME.",
+                            "examples": ["$XSAPPNAME.ViewerPublic"]
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "description",
+                    "role-template-references"
+                ]
+            }
+        }
+    },
+    "required": [
+        "xsappname",
+        "description",
+        "tenant-mode",
+        "scopes",
+        "attributes",
+        "role-templates",
+        "role-collections"
+    ]
+}
